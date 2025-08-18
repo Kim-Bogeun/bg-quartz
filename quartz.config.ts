@@ -1,11 +1,20 @@
 import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
 
-/**
- * Quartz 4 Configuration
- *
- * See https://quartz.jzhao.xyz/configuration for more information.
- */
+const GoogleSiteVerification = () => ({
+  name: "GoogleSiteVerification",
+  externalResources() {
+    return {
+      additionalHead: [
+        h("meta", {
+          name: "google-site-verification",
+          content: "FJzIoymchDc5XSIPh-ali3R0OItNNxoJHLkf90EO3Do",
+        }),
+      ],
+    }
+  },
+})
+
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "Bogeun-Kim",
@@ -19,18 +28,18 @@ const config: QuartzConfig = {
     locale: "en-US",
     baseUrl: "https://bogeun.pages.dev/",
     ignorePatterns: ["private", "templates", ".obsidian"],
-    defaultDateType: "modified",
+    defaultDateType: "created",
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
       typography: {
-        header: "Schibsted Grotesk",
-        body: "Source Sans Pro",
-        code: "IBM Plex Mono",
+        header: "Noto Sans KR",
+        body: "Noto Sans KR",
+        code: "JetBrains Mono",
       },
       colors: {
         lightMode: {
-          light: "#faf8f8",
+          light: "#ffffffff",
           lightgray: "#e5e5e5",
           gray: "#b8b8b8",
           darkgray: "#4e4e4e",
@@ -38,7 +47,7 @@ const config: QuartzConfig = {
           secondary: "#284b63",
           tertiary: "#84a59d",
           highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#fff23688",
+          textHighlight: "#369eff88",
         },
         darkMode: {
           light: "#161618",
@@ -56,6 +65,7 @@ const config: QuartzConfig = {
   },
   plugins: {
     transformers: [
+      GoogleSiteVerification(),
       Plugin.FrontMatter(),
       Plugin.CreatedModifiedDate({
         priority: ["frontmatter", "git", "filesystem"],
@@ -67,9 +77,9 @@ const config: QuartzConfig = {
         },
         keepBackground: false,
       }),
-      Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
+      Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false, enableCheckbox: true}),
       Plugin.GitHubFlavoredMarkdown(),
-      Plugin.TableOfContents(),
+      Plugin.TableOfContents({maxDepth: 5}),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
       Plugin.Description(),
       Plugin.Latex({ renderEngine: "katex" }),

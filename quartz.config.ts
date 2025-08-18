@@ -15,6 +15,12 @@ const GoogleSiteVerification = () => ({
   },
 })
 
+/**
+ * Quartz 4 Configuration
+ *
+ * See https://quartz.jzhao.xyz/configuration for more information.
+ */
+
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "Bogeun-Kim",
@@ -33,13 +39,13 @@ const config: QuartzConfig = {
       fontOrigin: "googleFonts",
       cdnCaching: true,
       typography: {
-        header: "Noto Sans KR",
-        body: "Noto Sans KR",
+        header: "Gowun Batang",
+        body: "Gowun Batang",
         code: "JetBrains Mono",
       },
       colors: {
         lightMode: {
-          light: "#ffffffff",
+          light: "#ffffff",
           lightgray: "#e5e5e5",
           gray: "#b8b8b8",
           darkgray: "#4e4e4e",
@@ -58,7 +64,7 @@ const config: QuartzConfig = {
           secondary: "#7b97aa",
           tertiary: "#84a59d",
           highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#b3aa0288",
+          textHighlight: "#369eff88",
         },
       },
     },
@@ -100,7 +106,7 @@ const config: QuartzConfig = {
       Plugin.Favicon(),
       Plugin.NotFoundPage(),
       // Comment out CustomOgImages to speed up build time
-      Plugin.CustomOgImages(),
+      // Plugin.CustomOgImages(),
     ],
   },
 }

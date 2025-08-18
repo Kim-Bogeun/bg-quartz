@@ -7,6 +7,10 @@ interface Options {
   links: Record<string, string>
 }
 
+const iconMap: Record<string, string> = {
+  GitHub: "fab fa-github"
+}
+
 export default ((opts?: Options) => {
   const Footer: QuartzComponent = ({ displayClass, cfg }: QuartzComponentProps) => {
     const year = new Date().getFullYear()
@@ -18,11 +22,21 @@ export default ((opts?: Options) => {
           <a href="https://quartz.jzhao.xyz/">Quartz v{version}</a> © {year}
         </p>
         <ul>
-          {Object.entries(links).map(([text, link]) => (
+          {Object.entries(links).map(([text, link]) => {
+            const iconClass = iconMap[text]
+            return (
             <li>
-              <a href={link}>{text}</a>
+              <a href={link} target="_blank" rel="noopener noreferrer">
+                {iconClass && (
+                  <i
+                    class={iconClass}
+                    style="margin: 0 5px; font-size: 1.5rem; color: #6A0DAD;"
+                  />
+                )}
+              </a>
             </li>
-          ))}
+            )
+          })}
         </ul>
       </footer>
     )

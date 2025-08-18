@@ -210,6 +210,17 @@ li:has(> .folder-outer:not(.open)) > .folder-container > svg {
   color: var(--tertiary);
 }
 
+.file-title {
+  display: inline-block;
+  max-width: 160px;
+  font-size: 0.83rem;
+  line-height: 1;  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
 .explorer {
   @media all and ($mobile) {
     &.collapsed {

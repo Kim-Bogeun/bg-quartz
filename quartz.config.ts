@@ -33,7 +33,7 @@ const config: QuartzConfig = {
       tagId: "G-NMDNT5QFN1",
     },
     locale: "en-US",
-    baseUrl: "https://bogeun.pages.dev/",
+    baseUrl: "bogeun.pages.dev",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {
@@ -101,6 +101,8 @@ const config: QuartzConfig = {
       Plugin.ContentIndex({
         enableSiteMap: true,
         enableRSS: true,
+        rssFullHtml: true,
+        includeEmptyFiles: false,
       }),
       Plugin.Assets(),
       Plugin.Static(),

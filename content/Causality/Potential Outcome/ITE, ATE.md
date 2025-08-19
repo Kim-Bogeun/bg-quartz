@@ -43,13 +43,14 @@ $$ \tau_i = Y_i(1) - Y_i(0) $$
 
 즉 $Y(1)$은 관측했지만 $Y(0)$은 동시에 관측할 수 없다.
 
-### ATE (Average Treatment Effect)
-
-**Fundamental Problem of Causal Inference**
+##### Fundamental Problem of Causal Inference
+^953668
 
 이는 인과추론의 근본적인 문제이기도 한데, 관측할 수 없다는 것은 아래 표처럼 데이터가 송송 뚫려있다는 것. 이래서는 타이레놀의 개별 처치 효과(ITE)를 정확하게 추정할 수가 없다.
 
 ![[PO_intro1.png |400x230]]
+
+### ATE (Average Treatment Effect)
 
 그래도 평균적인 타이레놀의 효과($E[Y(1)-Y(0)]$)는 구할 수 있지 않을까? 그게 관심 있는 값이기도 할 테고. 이를 **ATE(Aveage Treatment Effect)**[^1] 라고 하는데, 기댓값의 선형성을 이용해서 $E[Y(1)]-E[(Y(0)]$ 로 변환할 수 있다.
 
@@ -62,7 +63,7 @@ $$ \tau_i = Y_i(1) - Y_i(0) $$
 
 어떻게 이런 차이가 발생할 수 있을까?
 
-### Associational Difference vs Average Treatment Effect
+##### Associational Difference vs Average Treatment Effect
 
 두통약을 개발해서 처방해주는 괴짜 의사가 있다. (편의점에서도 쉽게 구할 수 있지만 예시를 위해 이 의사에게만 두통약을 구할 수 있다고 하자)
 
@@ -77,6 +78,6 @@ $$ \tau_i = Y_i(1) - Y_i(0) $$
 ---
 참고 자료: https://www.bradyneal.com/causal-inference-course
 
-^fa2029
-
 [^1]: 모든 사람을 평균내는 ATE와 달리, 특정 특성($X$)을 가진 집단 내에서의 평균 효과를 **CATE (Conditional Average Treatment Effect)** 라고 한다. 예를 들어, 20대 집단에서의 타이레놀 효과는 $E[Y(1)-Y(0) \mid X=\text{20대}]$처럼 표현할 수 있다.
+
+^fa2029

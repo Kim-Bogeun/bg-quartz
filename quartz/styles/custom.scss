@@ -1,3 +1,19 @@
 @use "./base.scss";
 
 // put your custom CSS here!
+
+// 텍스트 스타일 커스터마이징
+strong {
+  color: #0d88da !important; // 파란색 볼드
+  font-weight: 600;
+}
+
+em {
+  color: #12a046 !important; // 초록색 이탤릭
+  font-style: italic;
+}
+
+s, del {
+  color: #787f8c !important; // 회색 취소선
+  text-decoration: line-through;
+}

@@ -1,4 +1,4 @@
-import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+eimport { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import style from "./styles/explorer.scss"
 
 // @ts-ignore
@@ -30,16 +30,29 @@ const defaultOptions: Options = {
     return node
   },
   sortFn: (a, b) => {
-    // Sort order: folders first, then files. Sort folders and files alphabeticall
+    // Sort order: folders first, then files. Sort by creation date (oldest first)
     if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
-      // numeric: true: Whether numeric collation should be used, such that "1" < "2" < "10"
-      // sensitivity: "base": Only strings that differ in base letters compare as unequal. Examples: a ≠ b, a = á, a = A
+      // For files and folders, sort by date (oldest first)
+      const aDate = a.data?.date
+      const bDate = b.data?.date
+      
+      // If both have dates, sort by date (oldest first)
+      if (aDate && bDate) {
+        return aDate.getTime() - bDate.getTime()
+      }
+      
+      // If only one has a date, put the one with date first
+      if (aDate && !bDate) return -1
+      if (!aDate && bDate) return 1
+      
+      // If neither has a date, fall back to alphabetical sort
       return a.displayName.localeCompare(b.displayName, undefined, {
         numeric: true,
         sensitivity: "base",
       })
     }
 
+    // Keep folders above files
     if (!a.isFolder && b.isFolder) {
       return 1
     } else {

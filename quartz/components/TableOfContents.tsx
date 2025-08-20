@@ -39,7 +39,7 @@ export default ((opts?: Partial<Options>) => {
           aria-controls={id}
           aria-expanded={!fileData.collapseToc}
         >
-          <h3>{i18n(cfg.locale).components.tableOfContents.title}</h3>
+          <h4>{i18n(cfg.locale).components.tableOfContents.title}</h4>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -81,7 +81,7 @@ export default ((opts?: Partial<Options>) => {
     return (
       <details class="toc" open={!fileData.collapseToc}>
         <summary>
-          <h3>{i18n(cfg.locale).components.tableOfContents.title}</h3>
+          <h4>{i18n(cfg.locale).components.tableOfContents.title}</h4>
         </summary>
         <ul>
           {fileData.toc.map((tocEntry) => (

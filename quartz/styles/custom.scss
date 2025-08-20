@@ -4,7 +4,7 @@
 
 // 텍스트 스타일 커스터마이징
 strong {
-  color: #0d88da !important; // 파란색 볼드
+  color: #45ADA8 !important; // 파란색 볼드
   font-weight: 600;
 }
 
@@ -16,4 +16,38 @@ em {
 s, del {
   color: #787f8c !important; // 회색 취소선
   text-decoration: line-through;
+}
+
+// 헤더 스타일 커스터마이징
+h1 {
+  color: #2A363B !important; 
+  font-weight: 900;
+}
+
+h2 {
+  color: #99B898 !important;
+  font-weight: 650;
+}
+
+h3 {
+  color: #588189 !important;
+  font-weight: 650;
+}
+
+h4 {
+  color: #99B898 !important; 
+  font-weight: 600;
+}
+
+h5 {
+  color: #588189 !important;
+  font-weight: 600;
+}
+
+// 하이라이트 배경색 커스터마이징
+.text-highlight, 
+mark {
+  background-color: #E8F5E8 !important;
+  border-radius: 3px;
+  padding: 0 0.1rem;
 }

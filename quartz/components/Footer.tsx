@@ -34,7 +34,7 @@ export default ((opts?: Options) => {
                 {iconClass && (
                   <i
                     class={iconClass}
-                    style="margin: 0 5px; font-size: 1.5rem; color: #6A0DAD;"
+                    style="margin: 0 5px; font-size: 1.5rem; color: #99B898;"
                   />
                 )}
               </a>

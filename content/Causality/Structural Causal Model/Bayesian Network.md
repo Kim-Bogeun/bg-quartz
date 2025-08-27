@@ -33,9 +33,9 @@ SCM은 **Bayesian Network**의 성질을 이용하기 때문에, Bayesian Networ
 
 만약 우리가 변수 사이의 연관성, 또는 결합확률분포에 관심이 있다고 해보자. 그러면 우선 생각할 수 있는 것은 table 형식으로 그 관계를 표현하는 것이다.
 
-확률의 Factorization에 따라, $P(x_1,x_2,...,x_n) = P(x_1) \prod_i P(x_i|x_{i-1},...,x_1)$ 로 나타내는 것이 가능하다.
+확률의 Factorization에 따라, $P(x_1,x_2,...,x_n) = P(x_1) \prod_i P(x_i|x_{i-1},...,x_1)$ 로 나타낼 수 있다.
 
-그런데, 이진 변수 4개가 있는 상황을 생각해보자. 그러면 당장 $P(x_4|x_1,x_2,x_3)$을 표현하는 데에만 $2^3=8$개의 파라미터가 필요하다. 만약 변수 각각이 값을 4개 가질 수 있다거나, 변수 하나만 늘어나도 계산해야 할 파라미터는 폭발적(exponentially)으로 늘어날 것이다. 데이터가 그 수보다 작다면, 각 확률을 계산할 수 없다는 것은 덤으로 발생하는 문제이다.
+그런데, 이진 변수 4개가 있는 상황을 생각해보자. 그러면 당장 $P(x_4|x_1,x_2,x_3)$을 표현하는 데에만 $2^3=8$개의 파라미터가 필요하다. 만약 변수 각각이 값을 4개 가질 수 있다거나, 변수 하나만 늘어나도 계산해야 할 파라미터는 폭발적(exponentially)으로 늘어난다. 데이터가 그 수보다 작다면, 각 확률을 계산할 수 없다는 문제도 덤으로 발생한다.
 
 ![[bayesian network-1.png|200]]
 
@@ -49,7 +49,7 @@ SCM은 **Bayesian Network**의 성질을 이용하기 때문에, Bayesian Networ
 
 ### Local Markov Assumption
 
-이때 Bayesian Network가 그래프로 표현된다는 것은 중요한 가정을 하나 내포하고 있다. 바로 Local Markov Assumption(Property) 이다.
+이때 Bayesian Network가 그래프로 표현된다는 것은 중요한 가정을 하나 내포한다. 바로 Local Markov Assumption(Property) 이다.
 
 > [!NOTE] Local Markov Assumption  
 > DAG가 주어졌을 때, 각 노드는 자신의 부모(parent) 노드가 given되면, 그래프 상에서 자신의 후손(descendant)이 아닌 다른 모든 노드와 독립이다.

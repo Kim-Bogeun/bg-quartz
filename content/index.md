@@ -7,7 +7,7 @@ updated: 2025-08-19
 **Student @ Seoul National University GSDS, [Causality Lab](https://www.sanghacklee.me/)**
 
 ### Interests
-- Causality in AI: #Causality #PO #SCM #ML #DL
+- Causality in AI: #Causality #PO #SCM #MLDL
 - Domain Adaptation: #Transportability #MetaLearning #TransferLearning 
 - etc.: #dev
 

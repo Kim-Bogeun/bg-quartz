@@ -1,6 +1,8 @@
 ---
 created: 2025-08-29
 updated: 2025-08-29
+tags:
+  - Domain_Generalization
 ---
 ### Covariate Shift(Drift)
 

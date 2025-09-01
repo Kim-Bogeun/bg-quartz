@@ -1,6 +1,6 @@
 ---
 created: 2025-08-09
-updated: 2025-08-17
+updated: 2025-09-01
 tags:
   - PO
   - Causality
@@ -25,8 +25,7 @@ $Y$ : 관심 있는 결과(Outcome) (위 예시에서는 두통이 나았으면 
 
 $X$ : 공변량 변수(Covariates) (잠시 후 추가 설명)
 
-$i$ : 특정 unit, individual을 나타내기 위한 표기
-
+$i$ : 특정 unit, individual을 나타내기 위한 표기  
 → $Y_i$ : i번째 유닛의 결과 $Y_i|_{do(T=1)}$ : i번째 유닛이 Treatment가 1일 때의 **Potential Outcome** (i번째 유닛이 타이레놀을 먹었을 때의 Potential Outcome), 간단하게 $Y_i(1)$ 과 같이 표현하기도 한다.
 
 위 Notation으로 위 예시를 다시 정리한다면 (1)번 상황은 $Y(1)-Y(0) = 1-1 = 0$ , (2)번 상황은 $Y(1)-Y(0) = 1-0 = 1$ 로 표현할 수 있다.
@@ -78,6 +77,6 @@ $$ \tau_i = Y_i(1) - Y_i(0) $$
 ---
 참고 자료: https://www.bradyneal.com/causal-inference-course
 
-[^1]: 모든 사람을 평균내는 ATE와 달리, 특정 특성($X$)을 가진 집단 내에서의 평균 효과를 **CATE (Conditional Average Treatment Effect)** 라고 한다. 예를 들어, 20대 집단에서의 타이레놀 효과는 $E[Y(1)-Y(0) \mid X=\text{20대}]$처럼 표현할 수 있다.
-
 ^fa2029
+
+[^1]: 모든 사람을 평균내는 ATE와 달리, 특정 특성($X$)을 가진 집단 내에서의 평균 효과를 **CATE (Conditional Average Treatment Effect)** 라고 한다. 예를 들어, 20대 집단에서의 타이레놀 효과는 $E[Y(1)-Y(0) \mid X=\text{20대}]$처럼 표현할 수 있다.

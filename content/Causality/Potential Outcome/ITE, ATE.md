@@ -77,6 +77,5 @@ $$ \tau_i = Y_i(1) - Y_i(0) $$
 ---
 참고 자료: https://www.bradyneal.com/causal-inference-course
 
+[^1]: 모든 사람을 평균내는 ATE와 달리, 특정 특성($X$)을 가진 집단 내에서의 평균 효과를 **CATE (Conditional Average Treatment Effect)** 라고 한다. 예를 들어, 20대 집단에서의 타이레놀 효과는 $E[Y(1)-Y(0) \mid X=\text{20대}]$처럼 표현할 수 있다.  
 ^fa2029
-
-[^1]: 모든 사람을 평균내는 ATE와 달리, 특정 특성($X$)을 가진 집단 내에서의 평균 효과를 **CATE (Conditional Average Treatment Effect)** 라고 한다. 예를 들어, 20대 집단에서의 타이레놀 효과는 $E[Y(1)-Y(0) \mid X=\text{20대}]$처럼 표현할 수 있다.

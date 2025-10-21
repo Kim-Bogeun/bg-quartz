@@ -18,3 +18,6 @@ updated: 2025-08-27
 > 공부한 내용을 쉽게 풀어 쓰려고 노력하지만, 설명 과정에서 다소 틀린 부분이나 부정확한 부분이 있을 수 있습니다.
 > 
 > 발견하신다면 언제든 알려주시면 반영하겠습니다. 감사합니다.
+
+
+[![Hits](https://hits.sh/bogeun.pages.dev.svg?view=today-total&color=8dac3a)](https://hits.sh/bogeun.pages.dev/)

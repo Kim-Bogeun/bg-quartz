@@ -11,6 +11,9 @@ updated: 2025-08-27
 - Learning under Distribution Shift: #Domain_Generalization #Domain_Adaptation #Transportability
 - etc.: #dev 
 
+
+[![Hits](https://hits.sh/bogeun.pages.dev.svg?view=today-total&color=8dac3a)](https://hits.sh/bogeun.pages.dev/)
+
 ---
 > [!tip] 안내  
 > 공부하며 배운 개념을 정리하고 제 방식대로 설명하는 글을 모아둔 곳입니다.
@@ -20,4 +23,3 @@ updated: 2025-08-27
 > 발견하신다면 언제든 알려주시면 반영하겠습니다. 감사합니다.
 
 
-[![Hits](https://hits.sh/bogeun.pages.dev.svg?view=today-total&color=8dac3a)](https://hits.sh/bogeun.pages.dev/)

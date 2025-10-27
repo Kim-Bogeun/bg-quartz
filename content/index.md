@@ -14,7 +14,6 @@ updated: 2025-08-27
 
 [![Hits](https://hits.sh/bogeun.pages.dev.svg?view=today-total&color=8dac3a)](https://hits.sh/bogeun.pages.dev/)
 
----
 > [!tip] 안내  
 > 공부하며 배운 개념을 정리하고 제 방식대로 설명하는 글을 모아둔 곳입니다.
 > 

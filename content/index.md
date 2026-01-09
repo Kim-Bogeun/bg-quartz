@@ -1,11 +1,11 @@
 ---
 title: 배우다
 created: 2025-08-07
-updated: 2025-12-24
+updated: 2026-01-09
 ---
 
-**Master Student @ Seoul National University GSDS, [Causality Lab](https://www.sanghacklee.me/)**
-
+**Master Student @ Seoul National University GSDS, [Causality Lab](https://www.sanghacklee.me/)**  
+Contact: kbg771@snu.ac.kr
 ### Interests
 - Causality in AI: #Causality #PO #SCM #AI
 - Learning under Distribution Shift: #Domain_Generalization #Transportability

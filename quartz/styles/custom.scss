@@ -2,6 +2,8 @@
 
 // put your custom CSS here!
 
+// ─── 라이트모드 ────────────────────────────────────────────────
+
 // 텍스트 스타일 커스터마이징
 strong {
   color: #45ADA8 !important; // 파란색 볼드
@@ -55,4 +57,48 @@ mark {
   background-color: #E8F5E8 !important;
   border-radius: 3px;
   padding: 0 0.1rem;
+}
+
+// ─── 다크모드 ─────────────────────────────────────────────────
+
+[saved-theme="dark"] {
+  // 텍스트 스타일
+  strong {
+    color: #6dccc6 !important; // 밝은 teal
+  }
+
+  em {
+    color: #4db96e !important; // 밝은 초록
+  }
+
+  s, del {
+    color: #9a9fa8 !important; // 밝은 회색
+  }
+
+  // 헤더 스타일
+  h1 {
+    color: #c8d8dd !important; // 밝은 청회색 (#2A363B의 다크모드 대응)
+  }
+
+  h2 {
+    color: #b8d4b0 !important; // 밝은 sage green (#99B898 명도 상향)
+  }
+
+  h3 {
+    color: #84a59d !important; // 밝은 slate teal (#588189 명도 상향, tertiary)
+  }
+
+  h4 {
+    color: #b8d4b0 !important;
+  }
+
+  h5 {
+    color: #84a59d !important;
+  }
+
+  // 하이라이트 배경색
+  .text-highlight,
+  mark {
+    background-color: rgba(100, 180, 100, 0.15) !important; // 다크 배경용 투명 초록
+  }
 }

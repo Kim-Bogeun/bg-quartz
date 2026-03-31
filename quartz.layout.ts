@@ -19,6 +19,7 @@ export const sharedPageComponents: SharedLayout = {
         categoryId: 'DIC_kwDOPfTu1c4CuRGb',
       }
     }),
+    Component.InteractiveFisheye(),
   ],
   footer: Component.Footer({
     links: {

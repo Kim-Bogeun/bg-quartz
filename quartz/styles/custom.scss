@@ -6,7 +6,8 @@
 
 // 텍스트 스타일 커스터마이징
 strong {
-  color: #45ADA8 !important; // 파란색 볼드
+  // 기존 #45ADA8 대신, 청록/네이비 주조색과 대비되며 눈에 띄는 Accent Color 추천:
+  color: #D96C5B !important; // 코랄/테라코타 계열 (보색 포인트)
   font-weight: 600;
 }
 
@@ -64,7 +65,7 @@ mark {
 [saved-theme="dark"] {
   // 텍스트 스타일
   strong {
-    color: #6dccc6 !important; // 밝은 teal
+    color: #F2A65A !important; // 웜 앰버/골드 (다크모드용 포인트 컬러)
   }
 
   em {

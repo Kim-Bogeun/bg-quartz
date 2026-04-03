@@ -20,6 +20,7 @@ export const sharedPageComponents: SharedLayout = {
       }
     }),
     Component.InteractiveFisheye(),
+    Component.InteractiveBalloon(),
   ],
   footer: Component.Footer({
     links: {

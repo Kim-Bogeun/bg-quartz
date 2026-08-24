@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://bogeun.pages.dev/sitemap.xml

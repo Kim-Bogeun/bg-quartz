@@ -87,20 +87,31 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
 
   if (cfg.analytics?.provider === "google") {
     const tagId = cfg.analytics.tagId
+    const analyticsHost = cfg.baseUrl?.split("/")[0] ?? ""
     componentResources.afterDOMLoaded.push(`
+      const analyticsDebugMode = new URLSearchParams(location.search).get('ab_debug') === '1';
+      const analyticsProductionHost = location.hostname === '${analyticsHost}';
+      if (!analyticsProductionHost && !analyticsDebugMode) return;
+      const analyticsContext = analyticsDebugMode
+        ? { debug_mode: true, traffic_type: 'internal' }
+        : {};
       const gtagScript = document.createElement('script');
       gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=${tagId}';
       gtagScript.defer = true;
       gtagScript.onload = () => {
         window.dataLayer = window.dataLayer || [];
-        function gtag() {
+        window.gtag = window.gtag || function gtag() {
           dataLayer.push(arguments);
-        }
+        };
+        const gtag = window.gtag;
         gtag('js', new Date());
-        gtag('config', '${tagId}', { send_page_view: false });
-        gtag('event', 'page_view', { page_title: document.title, page_location: location.href });
+        gtag('config', '${tagId}', { send_page_view: false, ...analyticsContext });
+        gtag('event', 'page_view', { page_title: document.title, page_location: location.href, ...analyticsContext });
+        const queuedExperimentEvents = window.abAnalyticsQueue || [];
+        window.abAnalyticsQueue = [];
+        queuedExperimentEvents.forEach(([name, params]) => gtag('event', name, params));
         document.addEventListener('nav', () => {
-          gtag('event', 'page_view', { page_title: document.title, page_location: location.href });
+          gtag('event', 'page_view', { page_title: document.title, page_location: location.href, ...analyticsContext });
         });
       };
       

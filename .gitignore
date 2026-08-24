@@ -9,3 +9,8 @@ tsconfig.tsbuildinfo
 private/
 .replit
 replit.nix
+_meta_progress.md
+PORTFOLIO.md
+astro-v2/.astro/
+astro-v2/.wrangler/
+astro-v2/dist/

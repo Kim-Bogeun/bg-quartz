@@ -1,30 +1,29 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
-import RecentNotesForIndex from "./quartz/components/RecentNotesForsIndex"
+import HomeExperiment from "./quartz/components/HomeExperiment"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [
-    
-    RecentNotesForIndex,
+    HomeExperiment(),
 
     Component.Comments({
-      provider: 'giscus',
+      provider: "giscus",
       options: {
         repo: "Kim-Bogeun/bg-quartz",
         repoId: "R_kgDOPfTu1Q",
-        category: 'General',
-        categoryId: 'DIC_kwDOPfTu1c4CuRGb',
-      }
+        category: "General",
+        categoryId: "DIC_kwDOPfTu1c4CuRGb",
+      },
     }),
     Component.InteractiveFisheye(),
     Component.InteractiveBalloon(),
   ],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/Kim-Bogeun"
+      GitHub: "https://github.com/Kim-Bogeun",
     },
   }),
 }

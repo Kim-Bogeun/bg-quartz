@@ -1,6 +1,6 @@
 # 블로그 A/B 테스트 실험 명세 및 결과 기록
 
-- 문서 상태: 실험 지표·이벤트·분석 SQL 구현 완료 — 실제 GA4 적재 및 A/A 검증 전
+- 문서 상태: GA4→BigQuery Daily Export 연결 완료 — 첫 적재 및 A/A 검증 전
 - 최초 작성: 2026-08-24
 - 최종 수정: 2026-08-24
 - 현재 실험: `home_layout_v1`
@@ -206,9 +206,9 @@ Click-to-engaged rate는 클릭 이후에 조건부로 선택된 집단의 지�
 
 ### 3.10 실행 전 체크리스트
 
-- [ ] GA4 property 접근 권한과 데이터 유입 확인
-- [ ] GA4 BigQuery daily export 연결
-- [ ] BigQuery dataset 위치와 비용 정책 확인
+- [x] GA4 property 접근 권한과 DebugView 데이터 유입 확인
+- [x] GA4 BigQuery daily export 연결
+- [x] BigQuery dataset 위치와 비용 정책 확인
 - [ ] GA4 custom dimensions 등록
 - [ ] 문서 이동 1회당 `page_view` 1회인지 DebugView에서 확인
 - [ ] 다섯 custom event와 필수 파라미터를 DebugView에서 확인
@@ -236,7 +236,7 @@ Click-to-engaged rate는 클릭 이후에 조건부로 선택된 집단의 지�
 - [x] Cloudflare 일반 preview에서 GA4 스크립트와 실험 이벤트 차단 확인
 - [x] Cloudflare `ab_debug=1`에서 page view·노출·클릭·30초/50% engagement의 GA collect 요청 확인
 - [x] headless Chromium에서 동일 `exposure_id`의 노출·클릭과 LCP·INP·CLS 이벤트 확인
-- [ ] 실제 GA4 DebugView 수신 검증
+- [x] 실제 GA4 DebugView 수신 검증
 - [ ] 기존 Cloudflare Pages 프로젝트의 영구 preview 또는 production 배포
 
 ### 3.11 변경 이력
@@ -249,6 +249,7 @@ Click-to-engaged rate는 클릭 이후에 조건부로 선택된 집단의 지�
 | 2026-08-24 | A/B의 최신 글 수를 5개에서 6개로 확대               | B의 데스크톱 3열에서 두 행을 완성하고 A/B 입력을 동일하게 유지하기 위함                 | 노출되는 글 집합은 바뀌지만 실험 시작 전 변경이며, 두 변형에는 동일하게 적용됨                                         |
 | 2026-08-24 | preview GA 차단과 `ab_debug=1` 계측 경로 추가       | 테스트 방문의 production 분석 혼입을 막으면서 DebugView 검증은 허용하기 위함            | production 자동 측정은 `bogeun.pages.dev`에서만 실행되며 debug 이벤트는 internal traffic으로 구분됨                    |
 | 2026-08-24 | 지표 계층·Web Vitals·오류·노출 ID·BigQuery SQL 추가 | 클릭 증가와 읽기 품질, 성능, 데이터 신뢰성을 분리해 실제 출시 결정을 가능하게 하기 위함 | Primary는 사용자 단위 30분 CVR로 고정되고 guardrail 및 SRM 실패 시 출시하지 않음                                       |
+| 2026-08-24 | GA4 BigQuery Daily Export 연결                      | 원시 이벤트를 사용자 단위로 재구성하고 재현 가능한 SQL 분석을 수행하기 위함             | `bg-blog-lab`, Seoul, Daily, Sandbox로 연결. 첫 적재 전 데이터는 BigQuery 분석 대상이 아님                             |
 
 ### 3.12 결과 기록
 
@@ -286,6 +287,14 @@ Click-to-engaged rate는 클릭 이후에 조건부로 선택된 집단의 지�
 ## 4. 데이터 저장과 SQL 분석 구조
 
 ### 4.1 역할별 저장 위치
+
+현재 Export 설정:
+
+- Google Cloud project: `bg-blog-lab`
+- location: `asia-northeast3` (Seoul)
+- event export: Daily
+- streaming·advertising identifiers·user-data export: off
+- billing: BigQuery Sandbox. 원시 테이블은 60일 후 만료되므로 종료 결과는 이 문서에 영구 기록
 
 | 대상                | 저장 위치                                         | 목적                          |
 | ------------------- | ------------------------------------------------- | ----------------------------- |

@@ -24,7 +24,7 @@ const GoogleSiteVerification = () => ({
 
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "Bogeun-Kim",
+    pageTitle: "Bogeun's Blog",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
@@ -32,7 +32,7 @@ const config: QuartzConfig = {
       provider: "google",
       tagId: "G-NMDNT5QFN1",
     },
-    locale: "en-US",
+    locale: "ko-KR",
     baseUrl: "bogeun.pages.dev",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
@@ -84,9 +84,9 @@ const config: QuartzConfig = {
         },
         keepBackground: false,
       }),
-      Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false, enableCheckbox: true}),
+      Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false, enableCheckbox: true }),
       Plugin.GitHubFlavoredMarkdown(),
-      Plugin.TableOfContents({maxDepth: 5}),
+      Plugin.TableOfContents({ maxDepth: 5 }),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
       Plugin.Description(),
       Plugin.Latex({ renderEngine: "katex" }),

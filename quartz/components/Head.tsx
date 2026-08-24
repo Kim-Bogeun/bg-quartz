@@ -35,6 +35,17 @@ export default (() => {
       (e) => e.name === CustomOgImagesEmitterName,
     )
     const ogImageDefaultPath = `https://${cfg.baseUrl}/static/og-image.png`
+    const websiteStructuredData =
+      fileData.slug === "index" && cfg.baseUrl
+        ? {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": `https://${cfg.baseUrl}/#website`,
+            url: `https://${cfg.baseUrl}/`,
+            name: "Bogeun's Blog",
+            alternateName: "배우다",
+          }
+        : undefined
 
     return (
       <head>
@@ -85,6 +96,13 @@ export default (() => {
         <link rel="icon" href={iconPath} />
         <meta name="description" content={description} />
         <meta name="generator" content="Quartz" />
+
+        {websiteStructuredData && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteStructuredData) }}
+          />
+        )}
 
         {css.map((resource) => CSSResourceToStyleElement(resource, true))}
         {js

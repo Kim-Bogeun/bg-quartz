@@ -33,13 +33,13 @@ export default {
       title: "리더 모드",
     },
     explorer: {
-      title: "탐색기",
+      title: "Explorer",
     },
     footer: {
       createdWith: "Created with",
     },
     graph: {
-      title: "그래프 뷰",
+      title: "Graph View",
     },
     recentNotes: {
       title: "최근 게시글",

@@ -222,16 +222,17 @@ function setupGlobalArticleEngagement() {
 
   if (!slug || slug === "index" || !article || !title || !hasContentMetadata) return
 
-  let accumulatedActiveMs = 0
-  let activeStartedAt = document.visibilityState === "visible" ? performance.now() : undefined
+  let accumulatedVisibleMs = 0
+  let visibleStartedAt = document.visibilityState === "visible" ? performance.now() : undefined
   let scrolled = false
   let sent = false
 
-  const activeTimeMs = () =>
-    accumulatedActiveMs + (activeStartedAt === undefined ? 0 : performance.now() - activeStartedAt)
+  const visibleTimeMs = () =>
+    accumulatedVisibleMs +
+    (visibleStartedAt === undefined ? 0 : performance.now() - visibleStartedAt)
 
   const maybeSend = () => {
-    if (sent || !scrolled || activeTimeMs() < engagementSeconds * 1000) return
+    if (sent || !scrolled || visibleTimeMs() < engagementSeconds * 1000) return
     sent = true
 
     const tags = Array.from(document.querySelectorAll<HTMLElement>("a.tag-link"))
@@ -245,7 +246,7 @@ function setupGlobalArticleEngagement() {
       content_tags: tags.join("|"),
       engagement_seconds: engagementSeconds,
       scroll_ratio: engagementScrollRatio,
-      active_time_measurement: "page_visibility",
+      engagement_time_basis: "page_visibility",
     })
   }
 
@@ -258,26 +259,26 @@ function setupGlobalArticleEngagement() {
     maybeSend()
   }
 
-  const updateActiveTime = () => {
+  const updateVisibleTime = () => {
     const now = performance.now()
     if (document.visibilityState === "visible") {
-      activeStartedAt ??= now
-    } else if (activeStartedAt !== undefined) {
-      accumulatedActiveMs += now - activeStartedAt
-      activeStartedAt = undefined
+      visibleStartedAt ??= now
+    } else if (visibleStartedAt !== undefined) {
+      accumulatedVisibleMs += now - visibleStartedAt
+      visibleStartedAt = undefined
     }
     maybeSend()
   }
 
-  const activeTimer = window.setInterval(maybeSend, 1000)
+  const visibilityTimer = window.setInterval(maybeSend, 1000)
   window.addEventListener("scroll", checkArticleScroll, { passive: true })
-  document.addEventListener("visibilitychange", updateActiveTime)
+  document.addEventListener("visibilitychange", updateVisibleTime)
   checkArticleScroll()
 
   window.addCleanup(() => {
-    window.clearInterval(activeTimer)
+    window.clearInterval(visibilityTimer)
     window.removeEventListener("scroll", checkArticleScroll)
-    document.removeEventListener("visibilitychange", updateActiveTime)
+    document.removeEventListener("visibilitychange", updateVisibleTime)
   })
 }
 

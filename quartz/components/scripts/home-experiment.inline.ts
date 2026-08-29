@@ -30,7 +30,7 @@ const engagementScrollRatio = 0.5
 let currentHomeExposure: ExposureContext | undefined
 let pendingHomeInpExposure: ExposureContext | undefined
 
-function sendExperimentEvent(name: string, params: Record<string, unknown>) {
+function sendAnalyticsEvent(name: string, params: Record<string, unknown>) {
   const analyticsWindow = window as typeof window & {
     gtag?: (...args: unknown[]) => void
     abAnalyticsQueue?: Array<[string, Record<string, unknown>]>
@@ -87,7 +87,7 @@ function reportHomeWebVital(metric: Metric) {
     currentHomeExposure ?? (metric.name === "INP" ? pendingHomeInpExposure : undefined)
   if (!exposure) return
 
-  sendExperimentEvent("home_web_vital", {
+  sendAnalyticsEvent("home_web_vital", {
     ...exposure,
     metric_name: metric.name,
     metric_value: metric.value,
@@ -106,7 +106,7 @@ onLCP(reportHomeWebVital)
 
 window.addEventListener("error", () => {
   if (!currentHomeExposure) return
-  sendExperimentEvent("home_client_error", {
+  sendAnalyticsEvent("home_client_error", {
     ...currentHomeExposure,
     error_type: "javascript_error",
   })
@@ -114,7 +114,7 @@ window.addEventListener("error", () => {
 
 window.addEventListener("unhandledrejection", () => {
   if (!currentHomeExposure) return
-  sendExperimentEvent("home_client_error", {
+  sendAnalyticsEvent("home_client_error", {
     ...currentHomeExposure,
     error_type: "unhandled_rejection",
   })
@@ -131,7 +131,7 @@ function setupHomeExperiment() {
   if (!assignment.isPreview) {
     currentHomeExposure = createExposure(assignment.variant)
     sessionStorage.setItem("ab_home_exposure_v1", JSON.stringify(currentHomeExposure))
-    sendExperimentEvent("experiment_exposure", currentHomeExposure)
+    sendAnalyticsEvent("experiment_exposure", currentHomeExposure)
   }
 
   const clickHandler = (event: Event) => {
@@ -157,7 +157,7 @@ function setupHomeExperiment() {
 
     pendingHomeInpExposure = currentHomeExposure
     sessionStorage.setItem("ab_home_article_click_v1", JSON.stringify(context))
-    sendExperimentEvent("home_article_click", context)
+    sendAnalyticsEvent("home_article_click", context)
   }
 
   home.addEventListener("click", clickHandler)
@@ -188,7 +188,7 @@ function setupArticleEngagement() {
     if (sent || !elapsed || !scrolled) return
     sent = true
     sessionStorage.removeItem("ab_home_article_click_v1")
-    sendExperimentEvent("article_engaged_from_home", {
+    sendAnalyticsEvent("article_engaged_from_home", {
       ...context,
       engagement_seconds: engagementSeconds,
       scroll_ratio: engagementScrollRatio,
@@ -214,8 +214,77 @@ function setupArticleEngagement() {
   })
 }
 
+function setupGlobalArticleEngagement() {
+  const slug = document.body.dataset.slug
+  const article = document.querySelector<HTMLElement>("article.popover-hint")
+  const title = document.querySelector<HTMLElement>("h1.article-title")?.textContent?.trim()
+  const hasContentMetadata = document.querySelector(".content-meta") !== null
+
+  if (!slug || slug === "index" || !article || !title || !hasContentMetadata) return
+
+  let accumulatedVisibleMs = 0
+  let visibleStartedAt = document.visibilityState === "visible" ? performance.now() : undefined
+  let scrolled = false
+  let sent = false
+
+  const visibleTimeMs = () =>
+    accumulatedVisibleMs +
+    (visibleStartedAt === undefined ? 0 : performance.now() - visibleStartedAt)
+
+  const maybeSend = () => {
+    if (sent || !scrolled || visibleTimeMs() < engagementSeconds * 1000) return
+    sent = true
+
+    const tags = Array.from(document.querySelectorAll<HTMLElement>("a.tag-link"))
+      .map((tag) => tag.textContent?.trim().replace(/^#/, ""))
+      .filter((tag): tag is string => Boolean(tag))
+
+    sendAnalyticsEvent("article_engaged", {
+      article_path: `/${slug}`,
+      article_title: title,
+      content_category: slug.split("/")[0] ?? "",
+      content_tags: tags.join("|"),
+      engagement_seconds: engagementSeconds,
+      scroll_ratio: engagementScrollRatio,
+      engagement_time_basis: "page_visibility",
+    })
+  }
+
+  const checkArticleScroll = () => {
+    const articleTop = article.getBoundingClientRect().top + window.scrollY
+    const viewedArticleHeight = window.scrollY + window.innerHeight - articleTop
+    scrolled =
+      article.scrollHeight <= 0 ||
+      viewedArticleHeight / article.scrollHeight >= engagementScrollRatio
+    maybeSend()
+  }
+
+  const updateVisibleTime = () => {
+    const now = performance.now()
+    if (document.visibilityState === "visible") {
+      visibleStartedAt ??= now
+    } else if (visibleStartedAt !== undefined) {
+      accumulatedVisibleMs += now - visibleStartedAt
+      visibleStartedAt = undefined
+    }
+    maybeSend()
+  }
+
+  const visibilityTimer = window.setInterval(maybeSend, 1000)
+  window.addEventListener("scroll", checkArticleScroll, { passive: true })
+  document.addEventListener("visibilitychange", updateVisibleTime)
+  checkArticleScroll()
+
+  window.addCleanup(() => {
+    window.clearInterval(visibilityTimer)
+    window.removeEventListener("scroll", checkArticleScroll)
+    document.removeEventListener("visibilitychange", updateVisibleTime)
+  })
+}
+
 document.addEventListener("nav", () => {
   currentHomeExposure = undefined
   setupHomeExperiment()
   setupArticleEngagement()
+  setupGlobalArticleEngagement()
 })
